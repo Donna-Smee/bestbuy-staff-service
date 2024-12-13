@@ -1,29 +1,21 @@
-# Use an official Node.js runtime as a parent image
-FROM node:18.20.4-alpine AS builder
+# Step 1: Use an official Node.js runtime as the base image
+FROM node:16
 
-# Set the working directory to root
-WORKDIR /
+# Step 2: Set the working directory inside the container
+WORKDIR /app
 
-# Set the build argument for the app version number
-#ARG APP_VERSION=0.1.0
-
-# Copy package.json and package-lock.json to the container's root directory
+# Step 3: Copy the package.json and package-lock.json files to the container
+# This allows us to install dependencies without copying the entire app first.
 COPY package*.json ./
 
-# Clear npm cache
-RUN npm cache clean --force
-
-# Install app dependencies
+# Step 4: Install the app dependencies
 RUN npm install
 
-# Copy the rest of the app source code to the container
+# Step 5: Copy the rest of the application code
 COPY . .
 
-# Expose the port the app listens on
+# Step 6: Expose the port that the app will run on (3000 by default)
 EXPOSE 3000
 
-# Set the environment variable for the app version number
-ENV APP_VERSION=$APP_VERSION
-
-# Start the app
-CMD [ "npm", "start" ]
+# Step 7: Command to run the app
+CMD ["node", "server.js"]
