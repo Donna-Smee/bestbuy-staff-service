@@ -1,13 +1,13 @@
 # Use an official Node.js runtime as a parent image
 FROM node:18.20.4-alpine AS builder
 
-# Set the working directory to /app
-WORKDIR /app
+# (Optional) Set the working directory to root (you can omit this line if you want to use root by default)
+WORKDIR /
 
 # Set the build argument for the app version number
 ARG APP_VERSION=0.1.0
 
-# Copy package.json and package-lock.json to the container
+# Copy package.json and package-lock.json to the container's root directory
 COPY package*.json ./
 
 # Install app dependencies
