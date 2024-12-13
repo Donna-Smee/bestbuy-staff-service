@@ -1,0 +1,28 @@
+### Test: Create a new staff member
+POST http://localhost:3000/staff
+Content-Type: application/json
+
+{
+  "name": "Alice Johnson",
+  "position": "HR Manager",
+  "department": "HR",
+  "email": "alice.johnson@example.com"
+}
+
+### Test: Get all staff members
+GET http://localhost:3000/staff
+
+### Test: Get a staff member by ID
+GET http://localhost:3000/staff/1
+
+### Test: Update a staff member's information
+PUT http://localhost:3000/staff/1
+Content-Type: application/json
+
+{
+  "name": "John Doe Updated",
+  "position": "Lead Software Engineer"
+}
+
+### Test: Delete a staff member by ID
+DELETE http://localhost:3000/staff/1
