@@ -8,6 +8,9 @@ WORKDIR /
 # This allows us to install dependencies without copying the entire app first.
 COPY package*.json ./
 
+# Step Clean
+RUN npm cache clean --force
+
 # Step 4: Install the app dependencies
 RUN npm install
 
