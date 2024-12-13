@@ -1,0 +1,40 @@
+# Deployment section
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bestbuy-staff-service
+  labels:
+    app: bestbuy-staff-service
+spec:
+  replicas: 3  # Number of pod replicas for high availability
+  selector:
+    matchLabels:
+      app: bestbuy-staff-service
+  template:
+    metadata:
+      labels:
+        app: bestbuy-staff-service
+    spec:
+      containers:
+      - name: bestbuy-staff-service
+        image: dailydonuts/bestbuy-staff-service:latest 
+        ports:
+        - containerPort: 3000  # Port the application is running on
+        env:
+        - name: PORT
+          value: "3000"  # Directly setting the environment variable
+
+---
+# Service section
+apiVersion: v1
+kind: Service
+metadata:
+  name: bestbuy-staff-service
+spec:
+  selector:
+    app: bestbuy-staff-service
+  ports:
+    - protocol: TCP
+      port: 80            # External port exposed by the LoadBalancer
+      targetPort: 3000     # Internal port your app is running on
+  type: LoadBalancer      # Exposes the service to the external world
